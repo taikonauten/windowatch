@@ -1,0 +1,9 @@
+
+section {
+  height: 80vh;
+  background-color: lavender;
+}
+
+section:nth-child(odd) {
+  background-color: antiquewhite;
+}
