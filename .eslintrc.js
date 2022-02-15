@@ -28,8 +28,10 @@ module.exports = {
         project: ['./tsconfig.json'],
       },
       extends: [
+        'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        './node_modules/@taikonauten/linters-js/eslint/index.js',
         './node_modules/@taikonauten/linters-typescript/eslint/index.js',
       ],
       plugins: [
