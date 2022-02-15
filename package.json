@@ -8,6 +8,8 @@
   "scripts": {
     "start": "webpack serve --config webpack.playground.js",
     "build": "tsc --project tsconfig.build.json",
+    "lint:js": "eslint ./src",
+    "lint": "npm run lint:js",
     "test": "karma start karma.conf.ts"
   },
   "repository": {
