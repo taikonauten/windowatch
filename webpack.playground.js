@@ -1,4 +1,3 @@
-
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
@@ -40,7 +39,9 @@ const config = [{
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
     port: 9000
   }
 }];

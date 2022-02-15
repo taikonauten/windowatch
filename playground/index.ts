@@ -71,7 +71,6 @@ const breakpointListenerRemoved = () => {
 
 
 if (setBreakpointSpecs) {
-
   TaikoLibWindowatch.setBreakpointSpecs(breakpointSpecs);
 }
 
