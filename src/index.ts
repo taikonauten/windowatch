@@ -1,10 +1,10 @@
-// passive events support test
-// https://github.com/rafgraph/detect-it/blob/main/src/index.ts
+// passive events support
+// https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
 let supportsPassiveEvents = false;
 
 try {
   const options = {
-    get passive() {
+    get passive(): boolean {
       return (supportsPassiveEvents = true);
     },
   };
@@ -13,11 +13,11 @@ try {
   // when providing a null callback.
   // https://github.com/rafgraph/detect-passive-events/pull/3
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const noop = () => {};
+  const noop = (): void => { };
   window.addEventListener('p', noop, options);
   window.removeEventListener('p', noop, false);
-// eslint-disable-next-line no-empty
-} catch (e) {}
+  // eslint-disable-next-line no-empty
+} catch (e) { }
 
 /**
  * Windowatch is a singleton class managing scroll, resize and breakpoint change
@@ -183,7 +183,7 @@ class TaikoLibWindowatch {
    * @return {number}
    * @memberof TaikoLibWindowatch
    */
-  getWindowWidth (): number {
+  getWindowWidth(): number {
 
     // Calculate window measurements in case
     // there are no listeners set and the sizes
@@ -202,7 +202,7 @@ class TaikoLibWindowatch {
    * @return {number}
    * @memberof TaikoLibWindowatch
    */
-  getWindowHeight (): number {
+  getWindowHeight(): number {
 
     // Calculate window measurements in case
     // there are no listeners set and the sizes
@@ -223,7 +223,7 @@ class TaikoLibWindowatch {
    * @return {boolean}
    * @memberof TaikoLibWindowatch
    */
-  isSmallerThan (breakpoint: BreakpointName): boolean {
+  isSmallerThan(breakpoint: BreakpointName): boolean {
 
     if (this.breakpointSpecs === undefined) {
       throw new Error('No breakpoint specs defined.');
@@ -250,7 +250,7 @@ class TaikoLibWindowatch {
    * @return {boolean}
    * @memberof TaikoLibWindowatch
    */
-  isBiggerThan (breakpoint: BreakpointName): boolean {
+  isBiggerThan(breakpoint: BreakpointName): boolean {
 
     if (this.breakpointSpecs === undefined) {
       throw new Error('No breakpoint specs defined.');
@@ -275,7 +275,7 @@ class TaikoLibWindowatch {
    * @return {BreakpointName | undefined}
    * @memberof TaikoLibWindowatch
    */
-  getBreakpoint (): BreakpointName | undefined {
+  getBreakpoint(): BreakpointName | undefined {
 
     if (this.breakpointSpecs === undefined) {
       throw new Error('No breakpoint specs defined.');
@@ -302,7 +302,7 @@ class TaikoLibWindowatch {
    * @return {BreakpointSpec | undefined}
    * @memberof TaikoLibWindowatch
    */
-  getBreakpointSpec (): BreakpointSpec | undefined {
+  getBreakpointSpec(): BreakpointSpec | undefined {
 
     if (this.breakpointSpecs === undefined) {
       throw new Error('No breakpoint specs defined.');
@@ -329,7 +329,7 @@ class TaikoLibWindowatch {
    * @return {number}
    * @memberof TaikoLibWindowatch
    */
-  getScrollY (): number {
+  getScrollY(): number {
 
     // Calculate scroll position in case
     // there are no listeners set and the position
@@ -364,7 +364,7 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
 
-  addScrollListener (callback: CallableFunction, breakpoints: BreakpointName[] = []): TaikoLibWindowatch {
+  addScrollListener(callback: CallableFunction, breakpoints: BreakpointName[] = []): TaikoLibWindowatch {
 
     if (this.scrollListeners.indexOf(callback as never) === -1) {
 
@@ -383,7 +383,7 @@ class TaikoLibWindowatch {
    * @return {TaikoLibWindowatch} Fluent interface
    * @memberof TaikoLibWindowatch
    */
-  removeScrollListener (callback: CallableFunction): TaikoLibWindowatch {
+  removeScrollListener(callback: CallableFunction): TaikoLibWindowatch {
 
     const index = this.scrollListeners.indexOf(callback as never);
 
@@ -403,7 +403,7 @@ class TaikoLibWindowatch {
    * @return {TaikoLibWindowatch} Fluent interface
    * @memberof TaikoLibWindowatch
    */
-  addResizeListener (callback: CallableFunction): TaikoLibWindowatch {
+  addResizeListener(callback: CallableFunction): TaikoLibWindowatch {
 
     if (this.resizeListeners.indexOf(callback as never) === -1) {
 
@@ -421,7 +421,7 @@ class TaikoLibWindowatch {
    * @return {TaikoLibWindowatch} Fluent interface
    * @memberof TaikoLibWindowatch
    */
-  removeResizeListener (callback: CallableFunction): TaikoLibWindowatch {
+  removeResizeListener(callback: CallableFunction): TaikoLibWindowatch {
 
     const index = this.resizeListeners.indexOf(callback as never);
 
@@ -448,7 +448,7 @@ class TaikoLibWindowatch {
    * @return {TaikoLibWindowatch} Fluent interface
    * @memberof TaikoLibWindowatch
    */
-  setBreakpointSpecs (breakpointSpecs: BreakpointSpecs): TaikoLibWindowatch {
+  setBreakpointSpecs(breakpointSpecs: BreakpointSpecs): TaikoLibWindowatch {
 
     this.breakpointSpecs = breakpointSpecs;
 
@@ -465,7 +465,7 @@ class TaikoLibWindowatch {
    * @return {TaikoLibWindowatch} Fluent interface
    * @memberof TaikoLibWindowatch
    */
-  addBreakpointListener (callback: CallableFunction): TaikoLibWindowatch {
+  addBreakpointListener(callback: CallableFunction): TaikoLibWindowatch {
 
     if (this.breakpointListeners.indexOf(callback as never) === -1) {
 
@@ -483,7 +483,7 @@ class TaikoLibWindowatch {
    * @return {TaikoLibWindowatch} Fluent interface
    * @memberof TaikoLibWindowatch
    */
-  removeBreakpointListener (callback: CallableFunction): TaikoLibWindowatch {
+  removeBreakpointListener(callback: CallableFunction): TaikoLibWindowatch {
 
     const index = this.breakpointListeners.indexOf(callback as never);
 
@@ -503,8 +503,7 @@ class TaikoLibWindowatch {
    * @return {TaikoLibWindowatch} Fluent interface
    * @memberof TaikoLibWindowatch
    */
-  protected updateWindowListeners () {
-
+  protected updateWindowListeners(): void {
     // count total resize listeners (scroll listeners depend on resize)
     const listenerCount =
       this.scrollListeners.length +
@@ -513,11 +512,9 @@ class TaikoLibWindowatch {
 
     // register resize listener if necessary
     if (!this.resizeListening && listenerCount > 0) {
-
       this.resizeListening = true;
 
-      window.addEventListener('resize', this.windowDidResize,
-        supportsPassiveEvents ? { passive: true } : false);
+      window.addEventListener('resize', this.windowDidResize, supportsPassiveEvents ? { passive: true } : false);
       this.windowDidResize();
     }
 
@@ -568,7 +565,7 @@ class TaikoLibWindowatch {
    * @protected
    * @memberof TaikoLibWindowatch
    */
-  protected windowDidResize = () => {
+  protected windowDidResize = (): void => {
 
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -593,7 +590,7 @@ class TaikoLibWindowatch {
       const spec: BreakpointSpec = this.breakpointSpecs![breakpointName];
 
       return (spec.min === null || width >= spec.min) &&
-             (spec.max === null || width <= spec.max);
+        (spec.max === null || width <= spec.max);
     });
 
     if (breakpoint === undefined) {
@@ -617,7 +614,7 @@ class TaikoLibWindowatch {
    * @protected
    * @memberof TaikoLibWindowatch
    */
-  protected windowDidScroll = () => {
+  protected windowDidScroll = (): void => {
 
     const scrollY = window.pageYOffset;
 
@@ -637,7 +634,7 @@ class TaikoLibWindowatch {
    * @protected
    * @memberof TaikoLibWindowatch
    */
-  protected requestFrame = () => {
+  protected requestFrame = (): TaikoLibWindowatch => {
 
     // check if frame has already been requested
     if (!this.framePending) {
@@ -655,7 +652,7 @@ class TaikoLibWindowatch {
    * @protected
    * @memberof TaikoLibWindowatch
    */
-  protected frame = () => {
+  protected frame = (): void => {
 
     this.framePending = false;
 
@@ -707,7 +704,7 @@ class TaikoLibWindowatch {
     // filter update callbacks and trigger them at the end of the frame
     updateCallbacks
       .filter(result => typeof result === 'function')
-      .forEach((callback) => {callback();});
+      .forEach((callback) => { callback(); });
   };
 }
 
