@@ -25,9 +25,6 @@ try {
  * `requestAnimationFrame` to optimize dom interactions (get, update).
  */
 class TaikoLibWindowatch {
-
-  // window size
-
   /**
    * Window width
    *
@@ -66,8 +63,6 @@ class TaikoLibWindowatch {
    */
   private resizeListening = false;
 
-  // breakpoint
-
   /**
    * Holds the current breakpoint name
    *
@@ -94,8 +89,6 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   private breakpointDidChange = false;
-
-  // scroll
 
   /**
    * Holds the current scroll position of the document
@@ -124,8 +117,6 @@ class TaikoLibWindowatch {
    */
   private scrollListening = false;
 
-  // next frame
-
   /**
    * Flag to prevent requesting animation frame
    * updates multiple times
@@ -134,8 +125,6 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   private framePending = false;
-
-  // listeners
 
   /**
    * Holds all registered functions which
@@ -184,12 +173,10 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   getWindowWidth(): number {
-
     // Calculate window measurements in case
     // there are no listeners set and the sizes
     // are not calculated or up to date
     if (!this.resizeListening) {
-
       this.windowDidResize();
     }
 
@@ -203,12 +190,10 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   getWindowHeight(): number {
-
     // Calculate window measurements in case
     // there are no listeners set and the sizes
     // are not calculated or up to date
     if (!this.resizeListening) {
-
       this.windowDidResize();
     }
 
@@ -285,7 +270,6 @@ class TaikoLibWindowatch {
     // there are no listeners set and the sizes
     // are not calculated or up to date
     if (!this.resizeListening) {
-
       this.windowDidResize();
     }
 
@@ -312,7 +296,6 @@ class TaikoLibWindowatch {
     // there are no listeners set and the sizes
     // are not calculated or up to date
     if (!this.resizeListening) {
-
       this.windowDidResize();
     }
 
@@ -330,12 +313,10 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   getScrollY(): number {
-
     // Calculate scroll position in case
     // there are no listeners set and the position
     // is not calculated or up to date
     if (!this.scrollListening) {
-
       this.windowDidScroll();
     }
 
@@ -367,7 +348,6 @@ class TaikoLibWindowatch {
   addScrollListener(callback: CallableFunction, breakpoints: BreakpointName[] = []): TaikoLibWindowatch {
 
     if (this.scrollListeners.indexOf(callback as never) === -1) {
-
       this.scrollListeners.push(callback as never);
       this.scrollListenerBreakpoints.push(breakpoints as never);
       this.updateWindowListeners();
@@ -384,7 +364,6 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   removeScrollListener(callback: CallableFunction): TaikoLibWindowatch {
-
     const index = this.scrollListeners.indexOf(callback as never);
 
     if (index !== -1) {
@@ -406,7 +385,6 @@ class TaikoLibWindowatch {
   addResizeListener(callback: CallableFunction): TaikoLibWindowatch {
 
     if (this.resizeListeners.indexOf(callback as never) === -1) {
-
       this.resizeListeners.push(callback as never);
       this.updateWindowListeners();
     }
@@ -422,11 +400,9 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   removeResizeListener(callback: CallableFunction): TaikoLibWindowatch {
-
     const index = this.resizeListeners.indexOf(callback as never);
 
     if (index !== -1) {
-
       this.resizeListeners.splice(index, 1);
       this.updateWindowListeners();
     }
@@ -449,9 +425,7 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   setBreakpointSpecs(breakpointSpecs: BreakpointSpecs): TaikoLibWindowatch {
-
     this.breakpointSpecs = breakpointSpecs;
-
     // handle possible changes due to now registered breakpoint specs
     this.windowDidResize();
 
@@ -468,7 +442,6 @@ class TaikoLibWindowatch {
   addBreakpointListener(callback: CallableFunction): TaikoLibWindowatch {
 
     if (this.breakpointListeners.indexOf(callback as never) === -1) {
-
       this.breakpointListeners.push(callback as never);
       this.updateWindowListeners();
     }
@@ -484,11 +457,9 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   removeBreakpointListener(callback: CallableFunction): TaikoLibWindowatch {
-
     const index = this.breakpointListeners.indexOf(callback as never);
 
     if (index !== -1) {
-
       this.breakpointListeners.splice(index, 1);
       this.updateWindowListeners();
     }
@@ -513,14 +484,12 @@ class TaikoLibWindowatch {
     // register resize listener if necessary
     if (!this.resizeListening && listenerCount > 0) {
       this.resizeListening = true;
-
       window.addEventListener('resize', this.windowDidResize, supportsPassiveEvents ? { passive: true } : false);
       this.windowDidResize();
     }
 
     // deregister resize listener if no longer needed
     if (this.resizeListening && listenerCount === 0) {
-
       window.removeEventListener('resize', this.windowDidResize);
       this.resizeListening = false;
     }
@@ -529,31 +498,22 @@ class TaikoLibWindowatch {
     let scrollListenerCount = 0;
 
     this.scrollListeners.forEach((callback, index) => {
-
       const breakpoints = this.scrollListenerBreakpoints[index];
 
-      if (
-        breakpoints.length === 0 ||
-        breakpoints.indexOf(this.breakpoint as BreakpointName) !== -1
-      ) {
-
+      if (breakpoints.length === 0 || breakpoints.indexOf(this.breakpoint as BreakpointName) !== -1) {
         scrollListenerCount++;
       }
     });
 
     // register scroll listener if necessary
     if (!this.scrollListening && scrollListenerCount > 0) {
-
       this.scrollListening = true;
-
-      window.addEventListener('scroll', this.windowDidScroll,
-        supportsPassiveEvents ? { passive: true } : false);
+      window.addEventListener('scroll', this.windowDidScroll, supportsPassiveEvents ? { passive: true } : false);
       this.windowDidScroll();
     }
 
     // deregister scroll listener if no longer needed
     if (this.scrollListening && scrollListenerCount === 0) {
-
       window.removeEventListener('scroll', this.windowDidScroll);
       this.scrollListening = false;
     }
@@ -566,7 +526,6 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   protected windowDidResize = (): void => {
-
     const width = window.innerWidth;
     const height = window.innerHeight;
 
@@ -585,7 +544,6 @@ class TaikoLibWindowatch {
 
     // choose breakpoint
     const breakpoint = Object.keys(this.breakpointSpecs).find((breakpointName) => {
-
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const spec: BreakpointSpec = this.breakpointSpecs![breakpointName];
 
@@ -615,7 +573,6 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   protected windowDidScroll = (): void => {
-
     const scrollY = window.pageYOffset;
 
     if (this.scrollY === scrollY) {
@@ -638,7 +595,6 @@ class TaikoLibWindowatch {
 
     // check if frame has already been requested
     if (!this.framePending) {
-
       this.framePending = true;
       window.requestAnimationFrame(this.frame);
     }
@@ -653,9 +609,7 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   protected frame = (): void => {
-
     this.framePending = false;
-
     // size, breakpoint and scroll listeners may return update callbacks
     // which should be executed at the end of the frame
     // separating dom measuring from dom updating should optimize performance
@@ -663,37 +617,26 @@ class TaikoLibWindowatch {
 
     // notify listeners about size change
     if (this.sizeDidChange) {
-
-      this.resizeListeners.forEach((callback) =>
-        updateCallbacks.push(callback(this.width, this.height)));
-
+      this.resizeListeners.forEach((callback) => updateCallbacks.push(callback(this.width, this.height)));
       this.sizeDidChange = false;
     }
 
     // notify listeners about breakpoint change
     if (this.breakpointDidChange && this.breakpoint !== undefined) {
-
       const spec = this.breakpointSpecs?.[this.breakpoint];
 
-      this.breakpointListeners.forEach((callback) =>
-        this.breakpoint && spec && updateCallbacks.push(callback(this.breakpoint, spec)));
-
+      this.breakpointListeners.forEach((callback) => this.breakpoint && spec && updateCallbacks.push(callback(this.breakpoint, spec)));
       this.breakpointDidChange = false;
     }
 
     // notify listeners about scroll change
     if (this.scrollDidChange) {
-
       this.scrollListeners.forEach((callback, index) => {
-
         const breakpoints = this.scrollListenerBreakpoints[index];
 
         // only notify listeners who are interested
         // in scroll events in current breakpoint
-        if (
-          breakpoints.length === 0 ||
-          breakpoints.indexOf(this.breakpoint as BreakpointName) !== -1
-        ) {
+        if (breakpoints.length === 0 || breakpoints.indexOf(this.breakpoint as BreakpointName) !== -1) {
           updateCallbacks.push(callback(this.scrollY));
         }
       });
