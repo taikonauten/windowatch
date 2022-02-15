@@ -33,5 +33,5 @@ Temporary Items
 dist
 node_modules
 public
-index.js
-index.d.ts
+/index.js
+/index.d.ts
