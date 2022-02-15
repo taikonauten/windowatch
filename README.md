@@ -157,6 +157,21 @@ TaikoLibWindowatch.removeBreakpointListener(breakpointChangeHandler);
 npm start
 ```
 
+## Tests
+
+Running the tests requires Chrome or Brave to be installed on in local environment.
+
+To execute all tests, run the following command:
+
+```shell
+npm run test
+```
+
+In case you are getting an error regarding the missing `CHROME_BIN` environment variable, please follow this guide:
+
+* locate Chrome or Brave binary by running `ls /usr/bin | grep 'chrome\|brave'`
+* update the `CHROME_BIN` env variable by running `export CHROME_BIN=/usr/bin/brave-browser`
+
 ---
 
 Made with ♡ at Taikonauten
