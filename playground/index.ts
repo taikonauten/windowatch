@@ -1,6 +1,6 @@
 
 import './index.css';
-import {windowatch as TaikoLibWindowatch} from '../src/index';
+import TaikoLibWindowatch from '../src/index';
 
 const testScroll = false;
 const testResize = false;
