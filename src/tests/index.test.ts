@@ -329,7 +329,7 @@ describe('Windowatch', () => {
   });
 
   describe('#addScrollListener', () => {
-    it('creates a new scroll listener and adds it to the list', done => {
+    it('creates a new scroll listener and calls #updateWindowListeners once', done => {
       const scrollListener = (): void => {
         return;
       };
@@ -344,7 +344,7 @@ describe('Windowatch', () => {
       done();
     });
 
-    it('does not create new scroll listener if callback already exists', done => {
+    it('does not create new scroll listener if callback already exists and calls #updateWindowListeners once', done => {
       const scrollListener = (): void => {
         return;
       };
@@ -364,7 +364,7 @@ describe('Windowatch', () => {
   });
 
   describe('#removeScrollListener', () => {
-    it('removes existing scroll listener', done => {
+    it('removes existing scroll listener and calls #updateWindowListeners once', done => {
       const scrollListener = (): void => {
         return;
       };
@@ -382,7 +382,7 @@ describe('Windowatch', () => {
       done();
     });
 
-    it('does not remove non existing scroll listener', done => {
+    it('does not remove non existing scroll listener and does not calls #updateWindowListeners', done => {
       const scrollListener = (): void => {
         return;
       };
@@ -391,6 +391,76 @@ describe('Windowatch', () => {
       const spy = chai.spy.on(sut, 'updateWindowListeners');
 
       sut.removeScrollListener(scrollListener);
+
+      expect(spy).to.have.been.called.exactly(0);
+
+      done();
+    });
+  });
+
+  describe('#addResizeListener', () => {
+    it('creates a new resize listener and calls #updateWindowListeners once', done => {
+      const resizeListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.addResizeListener(resizeListener);
+
+      expect(spy).to.have.been.called.once;
+
+      done();
+    });
+
+    it('does not create new resize listener if callback already exists and calls #updateWindowListeners once', done => {
+      const resizeListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+      
+      // add first resize listener
+      sut.addResizeListener(resizeListener);
+      // add second resize listener with same callback
+      sut.addResizeListener(resizeListener);
+
+      expect(spy).to.have.been.called.once;
+      
+      done();
+    });
+  });
+
+  describe('#removeResizeListener', () => {
+    it('removes existing resize listener and calls #updateWindowListeners once', done => {
+      const resizeListener = (): void => {
+        return;
+      };
+
+      // add resize listener
+      sut.addResizeListener(resizeListener);
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.removeResizeListener(resizeListener);
+
+      expect(spy).to.have.been.called.once;
+
+      done();
+    });
+
+    it('does not remove non existing resize listener and does not call #updateWindowListeners', done => {
+      const resizeListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.removeResizeListener(resizeListener);
 
       expect(spy).to.have.been.called.exactly(0);
 
