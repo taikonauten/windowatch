@@ -323,7 +323,77 @@ describe('Windowatch', () => {
       const actual = sut.getScrollY();
 
       expect(actual).to.be.equal(expectedScrollY);
+
+      done();
+    });
+  });
+
+  describe('#addScrollListener', () => {
+    it('creates a new scroll listener and adds it to the list', done => {
+      const scrollListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.addScrollListener(scrollListener);
+
+      expect(spy).to.have.been.called.once;
+
+      done();
+    });
+
+    it('does not create new scroll listener if callback already exists', done => {
+      const scrollListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
       
+      // add first scroll listener
+      sut.addScrollListener(scrollListener);
+      // add second scroll listener with same callback
+      sut.addScrollListener(scrollListener);
+
+      expect(spy).to.have.been.called.once;
+      
+      done();
+    });
+  });
+
+  describe('#removeScrollListener', () => {
+    it('removes existing scroll listener', done => {
+      const scrollListener = (): void => {
+        return;
+      };
+
+      // add scroll listener
+      sut.addScrollListener(scrollListener);
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.removeScrollListener(scrollListener);
+
+      expect(spy).to.have.been.called.once;
+
+      done();
+    });
+
+    it('does not remove non existing scroll listener', done => {
+      const scrollListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.removeScrollListener(scrollListener);
+
+      expect(spy).to.have.been.called.exactly(0);
+
       done();
     });
   });
