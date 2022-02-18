@@ -480,4 +480,74 @@ describe('Windowatch', () => {
       done();
     });
   });
+
+  describe('#addBreakpointListener', () => {
+    it('creates a new breakpoint listener and calls #updateWindowListeners once', done => {
+      const resizeListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.addBreakpointListener(resizeListener);
+
+      expect(spy).to.have.been.called.once;
+
+      done();
+    });
+
+    it('does not create new breakpoint listener if callback already exists and calls #updateWindowListeners once', done => {
+      const breakpointListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+      
+      // add first breakpoint listener
+      sut.addBreakpointListener(breakpointListener);
+      // add second breakpoint listener with same callback
+      sut.addBreakpointListener(breakpointListener);
+
+      expect(spy).to.have.been.called.once;
+      
+      done();
+    });
+  });
+
+  describe('#removeBreakpointListener', () => {
+    it('removes existing breakpoint listener and calls #updateWindowListeners once', done => {
+      const breakpointListener = (): void => {
+        return;
+      };
+
+      // add breakpoint listener
+      sut.addBreakpointListener(breakpointListener);
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.removeBreakpointListener(breakpointListener);
+
+      expect(spy).to.have.been.called.once;
+
+      done();
+    });
+
+    it('does not remove non existing breakpoint listener and does not call #updateWindowListeners', done => {
+      const breakpointListener = (): void => {
+        return;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'updateWindowListeners');
+
+      sut.removeBreakpointListener(breakpointListener);
+
+      expect(spy).to.have.been.called.exactly(0);
+
+      done();
+    });
+  });
 });
