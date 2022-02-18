@@ -467,4 +467,17 @@ describe('Windowatch', () => {
       done();
     });
   });
+
+  describe('#setBreakpointSpecs', () => {
+    it('should call #windowDidResize once', done => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'windowDidResize');
+      
+      sut.setBreakpointSpecs({x: {min: 600, max: 1000}});
+
+      expect(spy).to.have.been.called.once;
+      
+      done();
+    });
+  });
 });
