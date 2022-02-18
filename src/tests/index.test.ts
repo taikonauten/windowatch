@@ -153,6 +153,11 @@ describe('Windowatch', () => {
   });
 
   describe('#getBreakpoint', () => {
+    beforeEach(done => {
+      global.innerWidth = 600;
+      done();
+    });
+
     it('should fail if no breakpoint specs are defined', done => {
       expect(() => {sut.getBreakpoint();}).to.throw('No breakpoint specs defined.');
       
@@ -187,6 +192,91 @@ describe('Windowatch', () => {
       // define expectation for spied function
       expect(spy).to.have.been.called.exactly(0);
 
+      done();
+    });
+
+    it('should fail if no breakpoint is defined for current viewport width', done => {
+      sut.setBreakpointSpecs({x: {min: null, max: 600}});
+      // set viewport width to be greater than defined specs
+      global.innerWidth = 800;
+
+      expect(() => {sut.getBreakpoint();}).to.throw('No breakpoint defined for window width 800px');
+      
+      done();
+    });
+
+    it('should return the current breakpoint', done => {
+      sut.setBreakpointSpecs({x: {min: null, max: 600}});
+
+      const actual = sut.getBreakpoint();
+
+      expect(actual).to.be.equal('x');
+      
+      done();
+    });
+  });
+
+  describe('#getBreakpointSpec', () => {
+    beforeEach(done => {
+      global.innerWidth = 600;
+      done();
+    });
+
+    it('should fail if no breakpoint specs are defined', done => {
+      expect(() => {sut.getBreakpointSpec();}).to.throw('No breakpoint specs defined.');
+      
+      done();
+    });
+
+    it('should invoke #windowDidResize if no resize listener exist', done => {
+      sut.setBreakpointSpecs({x: {min: null, max: 600}});
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'windowDidResize');
+
+      // invoke actual function call
+      sut.getBreakpointSpec();
+
+      // define expectation for spied function
+      expect(spy).to.have.been.called.once;
+
+      done();
+    });
+
+    it('should not invoke #windowDidResize if resize listener exist', done => {
+      sut.setBreakpointSpecs({x: {min: null, max: 600}});
+      sut.addResizeListener(() => {return;});
+      
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'windowDidResize');
+
+      // invoke actual function call
+      sut.getBreakpointSpec();
+      
+      // define expectation for spied function
+      expect(spy).to.have.been.called.exactly(0);
+
+      done();
+    });
+
+    it('should fail if no breakpoint is defined for current viewport width', done => {
+      sut.setBreakpointSpecs({x: {min: null, max: 600}});
+      // set viewport width to be greater than defined specs
+      global.innerWidth = 800;
+
+      expect(() => {sut.getBreakpointSpec();}).to.throw('No breakpoint defined for window width 800px');
+      
+      done();
+    });
+
+    it('should return the current breakpoint spec', done => {
+      const expectedSpecs = {x: {min: null, max: 600}};
+      sut.setBreakpointSpecs(expectedSpecs);
+
+      const actual = sut.getBreakpointSpec();
+
+      expect(actual).to.be.equal(expectedSpecs.x);
+      
       done();
     });
   });
