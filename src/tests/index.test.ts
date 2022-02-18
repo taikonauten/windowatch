@@ -280,4 +280,51 @@ describe('Windowatch', () => {
       done();
     });
   });
+
+  describe('#getScrollY', () => {
+    beforeEach(done => {
+      global.innerWidth = 600;
+      global.innerHeight = 2000;
+      done();
+    });
+
+    it('should invoke #windowDidScroll if no scroll listener exist', done => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'windowDidScroll');
+
+      // invoke actual function call
+      sut.getScrollY();
+
+      // define expectation for spied function
+      expect(spy).to.have.been.called.once;
+
+      done();
+    });
+
+    it('should not invoke #windowDidScroll if scroll listener exist', done => {
+      sut.addScrollListener(() => {return;});
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'windowDidScroll');
+
+      // invoke actual function call
+      sut.getScrollY();
+
+      // define expectation for spied function
+      expect(spy).to.have.been.called.exactly(0);
+
+      done();
+    });
+
+    it('should return the current scroll y position', done => {
+      const expectedScrollY = 800;
+      global.pageYOffset = expectedScrollY;
+
+      const actual = sut.getScrollY();
+
+      expect(actual).to.be.equal(expectedScrollY);
+      
+      done();
+    });
+  });
 });
