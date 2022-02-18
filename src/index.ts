@@ -573,7 +573,7 @@ class TaikoLibWindowatch {
    * @memberof TaikoLibWindowatch
    */
   protected windowDidScroll = (): void => {
-    const scrollY = window.pageYOffset;
+    const scrollY = window.scrollY;
 
     if (this.scrollY === scrollY) {
       // nothing changed, nothing to do
