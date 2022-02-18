@@ -4,10 +4,9 @@ import { Windowatch } from '../';
 
 // enable chai-spies plugin
 chai.use(spies);
+let sut: InstanceType<typeof Windowatch>;
 
 describe('Windowatch', () => {
-  let sut: InstanceType<typeof Windowatch>;
-
   beforeEach(done => {
     sut = new Windowatch();
     done();
@@ -161,28 +160,32 @@ describe('Windowatch', () => {
     });
 
     it('should invoke #windowDidResize if no resize listener exist', done => {
+      sut.setBreakpointSpecs({x: {min: null, max: 600}});
+
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const spy = chai.spy.on(sut, 'windowDidResize');
-      sut.setBreakpointSpecs({x: {min: null, max: 600}});
+
+      // invoke actual function call
+      sut.getBreakpoint();
 
       // define expectation for spied function
       expect(spy).to.have.been.called.once;
-      // invoke actual function call
-      sut.getBreakpoint();
 
       done();
     });
 
-    xit('should not invoke #windowDidResize if resize listener exist', done => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const spy = chai.spy.on(sut, 'windowDidResize');
+    it('should not invoke #windowDidResize if resize listener exist', done => {
       sut.setBreakpointSpecs({x: {min: null, max: 600}});
       sut.addResizeListener(() => {return;});
+      
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spy = chai.spy.on(sut, 'windowDidResize');
 
-      // define expectation for spied function
-      expect(spy).to.not.have.been.called();
       // invoke actual function call
       sut.getBreakpoint();
+      
+      // define expectation for spied function
+      expect(spy).to.have.been.called.exactly(0);
 
       done();
     });
