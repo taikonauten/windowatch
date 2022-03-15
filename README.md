@@ -17,7 +17,7 @@ npm install --save @taikonauten/windowatch
 ### Retrieve env properties
 
 ```javascript
-import TaikoLibWindowatch from '../index';
+import TaikoLibWindowatch from '@libs/taiko-lib-windowatch';
 
 // get the current window width
 let width = TaikoLibWindowatch.getWindowWidth();
@@ -37,7 +37,7 @@ let scrollY = TaikoLibWindowatch.getScrollY();
 Add breakpoint specification to your script's entry point:
 
 ```javascript
-import TaikoLibWindowatch from '../index';
+import TaikoLibWindowatch from '@libs/taiko-lib-windowatch';
 
 TaikoLibWindowatch.setBreakpointSpecs({
   s: { min: null, max: 899 },
@@ -87,7 +87,7 @@ Do all measurements and calculations first and put modifications like adding or 
 Scroll listener example:
 
 ```javascript
-import TaikoLibWindowatch from '../index';
+import TaikoLibWindowatch from '@libs/taiko-lib-windowatch';
 
 const scrollHandler = (scrollY) => {
   // dom measurements
@@ -155,6 +155,32 @@ TaikoLibWindowatch.removeBreakpointListener(breakpointChangeHandler);
 
 ```shell
 npm start
+```
+
+## Tests
+
+Running the tests requires Chrome or Brave to be installed on in local environment.
+
+To execute all tests, run the following command:
+
+```shell
+npm run test
+```
+
+In case you are getting an error regarding the missing `CHROME_BIN` environment variable, please follow this guide:
+
+* locate Chrome or Brave binary by running `ls /usr/bin | grep 'chrome\|brave'`
+* update the `CHROME_BIN` env variable by running `export CHROME_BIN=/usr/bin/brave-browser`
+
+## Migration
+
+### Changes in 2.x
+
+Update the main import
+
+```diff
+-import {windowatch as TaikoLibWindowatch} from '../src/index';
++import TaikoLibWindowatch from '../src/index';
 ```
 
 ---

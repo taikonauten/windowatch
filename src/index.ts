@@ -651,4 +651,5 @@ class TaikoLibWindowatch {
   };
 }
 
-export const windowatch = new TaikoLibWindowatch();
+export const Windowatch = TaikoLibWindowatch;
+export default new TaikoLibWindowatch();
