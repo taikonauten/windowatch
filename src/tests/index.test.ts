@@ -1,14 +1,14 @@
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
-import { Windowatch } from '../';
+import { _Windowatch } from '../';
 
 // enable chai-spies plugin
 chai.use(spies);
-let sut: InstanceType<typeof Windowatch>;
+let sut: InstanceType<typeof _Windowatch>;
 
 describe('Windowatch', () => {
   beforeEach(done => {
-    sut = new Windowatch();
+    sut = new _Windowatch();
     done();
   });
 

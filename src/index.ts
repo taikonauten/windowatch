@@ -24,13 +24,13 @@ try {
  * events globally. It uses passive resize & scroll event listeners and
  * `requestAnimationFrame` to optimize dom interactions (get, update).
  */
-class TaikoLibWindowatch {
+class Windowatch {
   /**
    * Window width
    *
    * @private
    * @type {number}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private width = window.innerWidth;
 
@@ -39,7 +39,7 @@ class TaikoLibWindowatch {
    *
    * @private
    * @type {number}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private height = window.innerHeight;
 
@@ -48,7 +48,7 @@ class TaikoLibWindowatch {
    *
    * @private
    * @type {boolean}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private sizeDidChange = false;
 
@@ -59,7 +59,7 @@ class TaikoLibWindowatch {
    *
    * @private
    * @type {boolean}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private resizeListening = false;
 
@@ -68,7 +68,7 @@ class TaikoLibWindowatch {
    *
    * @private
    * @type {(BreakpointName | undefined)}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private breakpoint: BreakpointName | undefined;
 
@@ -77,7 +77,7 @@ class TaikoLibWindowatch {
    *
    * @private
    * @type {(BreakpointSpecs | undefined)}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private breakpointSpecs: BreakpointSpecs | undefined;
 
@@ -86,7 +86,7 @@ class TaikoLibWindowatch {
    *
    * @private
    * @type {boolean}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private breakpointDidChange = false;
 
@@ -94,7 +94,7 @@ class TaikoLibWindowatch {
    * Holds the current scroll position of the document
    *
    * @private
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private scrollY = 0;
 
@@ -103,7 +103,7 @@ class TaikoLibWindowatch {
    * to handle related callbacks
    *
    * @private
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private scrollDidChange = false;
 
@@ -113,7 +113,7 @@ class TaikoLibWindowatch {
    * need to be made as soon as requested
    *
    * @private
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private scrollListening = false;
 
@@ -122,7 +122,7 @@ class TaikoLibWindowatch {
    * updates multiple times
    *
    * @private
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private framePending = false;
 
@@ -132,7 +132,7 @@ class TaikoLibWindowatch {
    *
    * @private
    * @type {((scrollY: number) => CallableFunction)[]}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   private scrollListeners: ((scrollY: number) => CallableFunction)[] = [];
 
@@ -142,7 +142,7 @@ class TaikoLibWindowatch {
     *
     * @private
     * @type {BreakpointName[][]}
-    * @memberof TaikoLibWindowatch
+    * @memberof Windowatch
     */
   private scrollListenerBreakpoints: BreakpointName[][] = [];
 
@@ -152,7 +152,7 @@ class TaikoLibWindowatch {
     *
     * @private
     * @type {((width: number, height: number) => CallableFunction)[]}
-    * @memberof TaikoLibWindowatch
+    * @memberof Windowatch
     */
   private resizeListeners: ((width: number, height: number) => CallableFunction)[] = [];
 
@@ -162,7 +162,7 @@ class TaikoLibWindowatch {
     *
     * @private
     * @type {((breakpoint: BreakpointName, specs: BreakpointSpecs) => CallableFunction)[]}
-    * @memberof TaikoLibWindowatch
+    * @memberof Windowatch
     */
   private breakpointListeners: ((breakpoint: BreakpointName, specs: BreakpointSpec) => CallableFunction)[] = [];
 
@@ -170,7 +170,7 @@ class TaikoLibWindowatch {
    * Returns current window width.
    *
    * @return {number}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   getWindowWidth(): number {
     // Calculate window measurements in case
@@ -187,7 +187,7 @@ class TaikoLibWindowatch {
    * Returns current window height.
    *
    * @return {number}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   getWindowHeight(): number {
     // Calculate window measurements in case
@@ -206,7 +206,7 @@ class TaikoLibWindowatch {
    *
    * @param {BreakpointName} breakpoint
    * @return {boolean}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   isSmallerThan(breakpoint: BreakpointName): boolean {
 
@@ -233,7 +233,7 @@ class TaikoLibWindowatch {
    *
    * @param {BreakpointName} breakpoint
    * @return {boolean}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   isBiggerThan(breakpoint: BreakpointName): boolean {
 
@@ -258,7 +258,7 @@ class TaikoLibWindowatch {
    * Returns current breakpoint name.
    *
    * @return {BreakpointName | undefined}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   getBreakpoint(): BreakpointName | undefined {
 
@@ -284,7 +284,7 @@ class TaikoLibWindowatch {
    * Returns current breakpoint spec.
    *
    * @return {BreakpointSpec | undefined}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   getBreakpointSpec(): BreakpointSpec | undefined {
 
@@ -310,7 +310,7 @@ class TaikoLibWindowatch {
    * Returns current window scrollY.
    *
    * @return {number}
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   getScrollY(): number {
     // Calculate scroll position in case
@@ -341,11 +341,11 @@ class TaikoLibWindowatch {
    * returned by the callback.
    * @param {?BreakpointName[]} [breakpoints] Array of breakpoint names in which this
    * listener should to get scroll events.
-   * @return {TaikoLibWindowatch} Fluent interface
-   * @memberof TaikoLibWindowatch
+   * @return {Windowatch} Fluent interface
+   * @memberof Windowatch
    */
 
-  addScrollListener(callback: CallableFunction, breakpoints: BreakpointName[] = []): TaikoLibWindowatch {
+  addScrollListener(callback: CallableFunction, breakpoints: BreakpointName[] = []): Windowatch {
 
     if (this.scrollListeners.indexOf(callback as never) === -1) {
       this.scrollListeners.push(callback as never);
@@ -360,10 +360,10 @@ class TaikoLibWindowatch {
    * Removes scroll listener.
    *
    * @param {CallableFunction} callback
-   * @return {TaikoLibWindowatch} Fluent interface
-   * @memberof TaikoLibWindowatch
+   * @return {Windowatch} Fluent interface
+   * @memberof Windowatch
    */
-  removeScrollListener(callback: CallableFunction): TaikoLibWindowatch {
+  removeScrollListener(callback: CallableFunction): Windowatch {
     const index = this.scrollListeners.indexOf(callback as never);
 
     if (index !== -1) {
@@ -379,10 +379,10 @@ class TaikoLibWindowatch {
    * Adds resize listener.
    *
    * @param {function(width: int, height: int): CallableFunction} callback
-   * @return {TaikoLibWindowatch} Fluent interface
-   * @memberof TaikoLibWindowatch
+   * @return {Windowatch} Fluent interface
+   * @memberof Windowatch
    */
-  addResizeListener(callback: CallableFunction): TaikoLibWindowatch {
+  addResizeListener(callback: CallableFunction): Windowatch {
 
     if (this.resizeListeners.indexOf(callback as never) === -1) {
       this.resizeListeners.push(callback as never);
@@ -396,10 +396,10 @@ class TaikoLibWindowatch {
    * Removes resize listener.
    *
    * @param {CallableFunction} callback
-   * @return {TaikoLibWindowatch} Fluent interface
-   * @memberof TaikoLibWindowatch
+   * @return {Windowatch} Fluent interface
+   * @memberof Windowatch
    */
-  removeResizeListener(callback: CallableFunction): TaikoLibWindowatch {
+  removeResizeListener(callback: CallableFunction): Windowatch {
     const index = this.resizeListeners.indexOf(callback as never);
 
     if (index !== -1) {
@@ -421,10 +421,10 @@ class TaikoLibWindowatch {
    * });
    *
    * @param {BreakpointSpecs} breakpointMap Object mapping breakpoint names to their respective specs.
-   * @return {TaikoLibWindowatch} Fluent interface
-   * @memberof TaikoLibWindowatch
+   * @return {Windowatch} Fluent interface
+   * @memberof Windowatch
    */
-  setBreakpointSpecs(breakpointSpecs: BreakpointSpecs): TaikoLibWindowatch {
+  setBreakpointSpecs(breakpointSpecs: BreakpointSpecs): Windowatch {
     this.breakpointSpecs = breakpointSpecs;
     // handle possible changes due to now registered breakpoint specs
     this.windowDidResize();
@@ -436,10 +436,10 @@ class TaikoLibWindowatch {
    * Adds breakpoint listener.
    *
    * @param {function(breakpoint: BreakpointName, spec: BreakpointSpec): CallableFunction} callback
-   * @return {TaikoLibWindowatch} Fluent interface
-   * @memberof TaikoLibWindowatch
+   * @return {Windowatch} Fluent interface
+   * @memberof Windowatch
    */
-  addBreakpointListener(callback: CallableFunction): TaikoLibWindowatch {
+  addBreakpointListener(callback: CallableFunction): Windowatch {
 
     if (this.breakpointListeners.indexOf(callback as never) === -1) {
       this.breakpointListeners.push(callback as never);
@@ -453,10 +453,10 @@ class TaikoLibWindowatch {
    * Removes breakpoint listener.
    *
    * @param {CallableFunction} callback
-   * @return {TaikoLibWindowatch} Fluent interface
-   * @memberof TaikoLibWindowatch
+   * @return {Windowatch} Fluent interface
+   * @memberof Windowatch
    */
-  removeBreakpointListener(callback: CallableFunction): TaikoLibWindowatch {
+  removeBreakpointListener(callback: CallableFunction): Windowatch {
     const index = this.breakpointListeners.indexOf(callback as never);
 
     if (index !== -1) {
@@ -471,8 +471,8 @@ class TaikoLibWindowatch {
    * Registers or deregisters window listeners, depending on own listener.
    *
    * @protected
-   * @return {TaikoLibWindowatch} Fluent interface
-   * @memberof TaikoLibWindowatch
+   * @return {Windowatch} Fluent interface
+   * @memberof Windowatch
    */
   protected updateWindowListeners(): void {
     // count total resize listeners (scroll listeners depend on resize)
@@ -523,7 +523,7 @@ class TaikoLibWindowatch {
    * Triggered at each window resize event.
    *
    * @protected
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   protected windowDidResize = (): void => {
     const width = window.innerWidth;
@@ -570,7 +570,7 @@ class TaikoLibWindowatch {
    * Triggered at each window scroll event.
    *
    * @protected
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   protected windowDidScroll = (): void => {
     const scrollY = window.pageYOffset;
@@ -589,9 +589,9 @@ class TaikoLibWindowatch {
    * Requests the next frame.
    *
    * @protected
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
-  protected requestFrame = (): TaikoLibWindowatch => {
+  protected requestFrame = (): Windowatch => {
 
     // check if frame has already been requested
     if (!this.framePending) {
@@ -606,7 +606,7 @@ class TaikoLibWindowatch {
    * Triggered at each frame.
    *
    * @protected
-   * @memberof TaikoLibWindowatch
+   * @memberof Windowatch
    */
   protected frame = (): void => {
     this.framePending = false;
@@ -651,5 +651,5 @@ class TaikoLibWindowatch {
   };
 }
 
-export const Windowatch = TaikoLibWindowatch;
-export default new TaikoLibWindowatch();
+export const _Windowatch = Windowatch; // non-singleton export used for testing
+export default new Windowatch(); // default singleton export

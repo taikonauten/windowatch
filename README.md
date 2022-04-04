@@ -17,18 +17,18 @@ npm install --save @taikonauten/windowatch
 ### Retrieve env properties
 
 ```javascript
-import TaikoLibWindowatch from '@libs/taiko-lib-windowatch';
+import Windowatch from '@taikonauten/windowatch';
 
 // get the current window width
-let width = TaikoLibWindowatch.getWindowWidth();
+let width = Windowatch.getWindowWidth();
 // -> 2560
 
 // get the current window height
-let height = TaikoLibWindowatch.getWindowHeight();
+let height = Windowatch.getWindowHeight();
 // -> 1440
 
 // get the current vertical window scroll position
-let scrollY = TaikoLibWindowatch.getScrollY();
+let scrollY = Windowatch.getScrollY();
 // -> 42
 ```
 
@@ -37,9 +37,9 @@ let scrollY = TaikoLibWindowatch.getScrollY();
 Add breakpoint specification to your script's entry point:
 
 ```javascript
-import TaikoLibWindowatch from '@libs/taiko-lib-windowatch';
+import Windowatch from '@taikonauten/windowatch';
 
-TaikoLibWindowatch.setBreakpointSpecs({
+Windowatch.setBreakpointSpecs({
   s: { min: null, max: 899 },
   m: { min: 900, max: 1199 },
   l: { min: 1200, max: null }
@@ -52,11 +52,11 @@ You can then receive information about the current breakpoint and its specs.
 
 ```javascript
 // get the current breakpoint name
-TaikoLibWindowatch.getBreakpoint();
+Windowatch.getBreakpoint();
 // -> 's'
 
 // get the current breakpoint specifications
-TaikoLibWindowatch.getBreakpointSpec();
+Windowatch.getBreakpointSpec();
 // -> { min: null, max: 899 }
 ```
 
@@ -65,11 +65,11 @@ Both methods are called with a breakpoint name.
 
 ```javascript
 // check if the current breakpoint is smaller than the given one
-TaikoLibWindowatch.isSmallerThan('m');
+Windowatch.isSmallerThan('m');
 // if current breakpoint is s -> true
 
 // check if the current breakpoint is larger than the given one
-TaikoLibWindowatch.isBiggerThan('m');
+Windowatch.isBiggerThan('m');
 // if current breakpoint is s -> false
 ```
 
@@ -87,7 +87,7 @@ Do all measurements and calculations first and put modifications like adding or 
 Scroll listener example:
 
 ```javascript
-import TaikoLibWindowatch from '@libs/taiko-lib-windowatch';
+import Windowatch from '@taikonauten/windowatch';
 
 const scrollHandler = (scrollY) => {
   // dom measurements
@@ -101,7 +101,7 @@ const scrollHandler = (scrollY) => {
   }
 }
 
-TaikoLibWindowatch.addScrollListener(scrollHandler);
+Windowatch.addScrollListener(scrollHandler);
 ```
 
 #### Scroll event
@@ -112,8 +112,8 @@ The callback function accepts a single parameter, representing the current verti
 ```javascript
 const scrollHandler = (scrollY) => {};
 
-TaikoLibWindowatch.addScrollListener(scrollHandler);
-TaikoLibWindowatch.removeScrollListener(scrollHandler);
+Windowatch.addScrollListener(scrollHandler);
+Windowatch.removeScrollListener(scrollHandler);
 ```
 
 You can call `addScrollListener` with a second parameter, if your callback should only be called at specific breakpoints.
@@ -123,7 +123,7 @@ You can call `addScrollListener` with a second parameter, if your callback shoul
 ```javascript
 // The scrollHandler function is only called,
 // if the current breakpoint has the name 'm' or 'l'
-TaikoLibWindowatch.addScrollListener(scrollHandler, ['m', 'l']);
+Windowatch.addScrollListener(scrollHandler, ['m', 'l']);
 ```
 
 #### Resize event
@@ -134,8 +134,8 @@ This callback receives the width and the height of the window as its parameter.
 ```javascript
 const resizeHandler = (width, height) => {};
 
-TaikoLibWindowatch.addResizeListener(resizeHandler);
-TaikoLibWindowatch.removeResizeListener(resizeHandler);
+Windowatch.addResizeListener(resizeHandler);
+Windowatch.removeResizeListener(resizeHandler);
 ```
 
 #### Breakpoint event
@@ -147,8 +147,8 @@ If you do not need to react to each and every resize event but only if the curre
 ```javascript
 const breakpointChangeHandler = (breakpoint, spec) => {};
 
-TaikoLibWindowatch.addBreakpointListener(breakpointChangeHandler);
-TaikoLibWindowatch.removeBreakpointListener(breakpointChangeHandler);
+Windowatch.addBreakpointListener(breakpointChangeHandler);
+Windowatch.removeBreakpointListener(breakpointChangeHandler);
 ```
 
 ## Development & Playground
@@ -179,8 +179,17 @@ In case you are getting an error regarding the missing `CHROME_BIN` environment 
 Update the main import
 
 ```diff
--import {windowatch as TaikoLibWindowatch} from '../src/index';
-+import TaikoLibWindowatch from '../src/index';
+-import {windowatch as TaikoLibWindowatch} from '@libs/taiko-lib-windowatch';
++import TaikoLibWindowatch from '@taikonauten/windowatch';
+```
+
+### Changes in 2.1
+
+Update the main import
+
+```diff
+-import TaikoLibWindowatch from '@taikonauten/windowatch';
++import Windowatch from '@taikonauten/windowatch';
 ```
 
 ---
