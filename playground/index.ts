@@ -1,6 +1,6 @@
 
 import './index.css';
-import TaikoLibWindowatch from '../src/index';
+import Windowatch from '../src/index';
 
 const testScroll = false;
 const testResize = false;
@@ -38,7 +38,7 @@ const scrollListenerRemoved = (): () => void => {
 
 const scrollListenerAtM = (scrollY: number): () => void => {
   console.info(`scrollY === window.pageYOffset: ${String(window.pageYOffset === scrollY)}`);
-  console.info(`scroll at breakpoint m: ${String(TaikoLibWindowatch.getBreakpoint() === 'm')}`);
+  console.info(`scroll at breakpoint m: ${String(Windowatch.getBreakpoint() === 'm')}`);
 
   return () => console.info('render after scroll change at breakpoint m');
 };
@@ -55,7 +55,7 @@ const resizeListenerRemoved = (): () => void => {
 };
 
 const breakpointListener = (breakpoint: BreakpointName): () => void => {
-  const currentBreakpoint = TaikoLibWindowatch.getBreakpoint();
+  const currentBreakpoint = Windowatch.getBreakpoint();
 
   console.info(`TaikoLibWindowatch.getBreakpoint() (${currentBreakpoint as string}) === breakpoint (${breakpoint}): ${String(currentBreakpoint === breakpoint)}`);
 
@@ -67,55 +67,55 @@ const breakpointListenerRemoved = (): () => void => {
 };
 
 if (setBreakpointSpecs) {
-  TaikoLibWindowatch.setBreakpointSpecs(breakpointSpecs);
+  Windowatch.setBreakpointSpecs(breakpointSpecs);
 }
 
-console.info(`TaikoLibWindowatch.getWindowWidth() === window.innerWidth: ${String(window.innerWidth === TaikoLibWindowatch.getWindowWidth())}`);
+console.info(`TaikoLibWindowatch.getWindowWidth() === window.innerWidth: ${String(window.innerWidth === Windowatch.getWindowWidth())}`);
 
-console.info(`TaikoLibWindowatch.getWindowHeight() === window.innerHeight: ${String(window.innerHeight === TaikoLibWindowatch.getWindowHeight())}`);
+console.info(`TaikoLibWindowatch.getWindowHeight() === window.innerHeight: ${String(window.innerHeight === Windowatch.getWindowHeight())}`);
 
-console.info(`TaikoLibWindowatch.getScrollY() === window.pageYOffset: ${String(window.pageYOffset === TaikoLibWindowatch.getScrollY())}`);
+console.info(`TaikoLibWindowatch.getScrollY() === window.pageYOffset: ${String(window.pageYOffset === Windowatch.getScrollY())}`);
 
 if (testScroll) {
-  TaikoLibWindowatch.addScrollListener(scrollListener);
-  TaikoLibWindowatch.addScrollListener(scrollListenerRemoved);
-  TaikoLibWindowatch.removeScrollListener(scrollListenerRemoved);
+  Windowatch.addScrollListener(scrollListener);
+  Windowatch.addScrollListener(scrollListenerRemoved);
+  Windowatch.removeScrollListener(scrollListenerRemoved);
 }
 
 if (testResize) {
-  TaikoLibWindowatch.addResizeListener(resizeListener);
-  TaikoLibWindowatch.addResizeListener(resizeListenerRemoved);
-  TaikoLibWindowatch.removeResizeListener(resizeListenerRemoved);
+  Windowatch.addResizeListener(resizeListener);
+  Windowatch.addResizeListener(resizeListenerRemoved);
+  Windowatch.removeResizeListener(resizeListenerRemoved);
 }
 
 
 if (testBreakpoints) {
-  const currentBreakpoint = TaikoLibWindowatch.getBreakpoint();
+  const currentBreakpoint = Windowatch.getBreakpoint();
 
   console.info(`current breakpoint: ${currentBreakpoint as string}`);
 
-  console.info(`correct spec: ${String(JSON.stringify(TaikoLibWindowatch.getBreakpointSpec()) === JSON.stringify(breakpointSpecs[currentBreakpoint!]))}`);
+  console.info(`correct spec: ${String(JSON.stringify(Windowatch.getBreakpointSpec()) === JSON.stringify(breakpointSpecs[currentBreakpoint!]))}`);
 
-  console.info(`current breakpoint ${currentBreakpoint as string} smaller than m: ${String(TaikoLibWindowatch.isSmallerThan('m'))}`);
-  console.info(`current breakpoint ${currentBreakpoint as string} bigger than m: ${String(TaikoLibWindowatch.isBiggerThan('m'))}`);
+  console.info(`current breakpoint ${currentBreakpoint as string} smaller than m: ${String(Windowatch.isSmallerThan('m'))}`);
+  console.info(`current breakpoint ${currentBreakpoint as string} bigger than m: ${String(Windowatch.isBiggerThan('m'))}`);
 
   try {
-    TaikoLibWindowatch.isSmallerThan('wrongId');
+    Windowatch.isSmallerThan('wrongId');
   } catch (error) {
     console.error('isSmallerThan: wrong id given', error);
   }
 
   try {
-    TaikoLibWindowatch.isBiggerThan('wrongId');
+    Windowatch.isBiggerThan('wrongId');
   } catch (error) {
     console.error('isBiggerThan: wrong id given', error);
   }
 
-  TaikoLibWindowatch.addBreakpointListener(breakpointListener);
-  TaikoLibWindowatch.addBreakpointListener(breakpointListenerRemoved);
-  TaikoLibWindowatch.removeBreakpointListener(breakpointListenerRemoved);
+  Windowatch.addBreakpointListener(breakpointListener);
+  Windowatch.addBreakpointListener(breakpointListenerRemoved);
+  Windowatch.removeBreakpointListener(breakpointListenerRemoved);
 
   if (testBreakpointScroll) {
-    TaikoLibWindowatch.addScrollListener(scrollListenerAtM, ['m']);
+    Windowatch.addScrollListener(scrollListenerAtM, ['m']);
   }
 }
