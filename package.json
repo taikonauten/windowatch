@@ -1,6 +1,6 @@
 {
   "name": "@taikonauten/windowatch",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Library to handle scroll-, resize- and breakpoint-change events globally.",
   "main": "index.js",
   "types": "index.d.ts",
