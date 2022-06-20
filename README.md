@@ -6,6 +6,8 @@
 
 Windowatch is a singleton class managing scroll-, resize- and breakpoint-change events globally. It uses passive resize & scroll event listeners and `requestAnimationFrame` to optimize dom interactions (get, update). It removes unnecessary window event listeners automatically, if no listeners are attached.
 
+[![Tests](https://github.com/taikonauten/windowatch/actions/workflows/test.yml/badge.svg)](https://github.com/taikonauten/windowatch/actions/workflows/test.yml)
+
 ## Installation
 
 ```shell
